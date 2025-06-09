@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gokv
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: gokv
+  template:
+    metadata:
+      labels:
+        app: gokv
+    spec:
+      containers:
+        - name: gokv
+          image: your-dockerhub-username/gokv:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SELF_ADDRESS
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+            - name: PEERS
+              value: "gokv-0.gokv-service,gokv-1.gokv-service,gokv-2.gokv-service"
