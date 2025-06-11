@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: gokv
+  name: microkv
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: gokv
+      app: microkv
   template:
     metadata:
       labels:
-        app: gokv
+        app: microkv
     spec:
       containers:
-        - name: gokv
-          image: your-dockerhub-username/gokv:latest
+        - name: microkv
+          image: rtlatelpa4/mircokv:latest
           ports:
             - containerPort: 8080
           env:
@@ -23,4 +23,4 @@ spec:
                 fieldRef:
                   fieldPath: status.podIP
             - name: PEERS
-              value: "gokv-0.gokv-service,gokv-1.gokv-service,gokv-2.gokv-service"
+              value: "microkv-0.microkv-service,microkv-1.microkv-service,microkv-2.microkv-service"

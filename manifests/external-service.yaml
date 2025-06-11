@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: gokv-service
+  name: microkv-service
 spec:
   clusterIP: None # Required for peer DNS resolution
   selector:
-    app: gokv
+    app: microkv
   ports:
     - port: 8080
       targetPort: 8080
