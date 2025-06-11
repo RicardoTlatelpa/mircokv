@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: microkv
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: microkv
+  template:
+    metadata:
+      labels:
+        app: microkv
+    spec:
+      containers:
+        - name: microkv
+          image: rtlatelpa4/mircokv:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SELF_ADDRESS
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+            - name: PEERS
+              value: "microkv-0.microkv-service,microkv-1.microkv-service,microkv-2.microkv-service"
